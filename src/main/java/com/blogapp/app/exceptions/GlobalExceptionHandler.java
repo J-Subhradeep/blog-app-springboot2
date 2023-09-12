@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -23,6 +24,14 @@ public class GlobalExceptionHandler {
 		ApiResponse res = new ApiResponse(msg,false);
 		return new ResponseEntity<ApiResponse>(res,HttpStatus.NOT_FOUND);
 	}
+	
+	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+	public ResponseEntity<ApiResponse> methodNotAllowed(HttpRequestMethodNotSupportedException ex){
+		String msg = ex.getMessage();
+		ApiResponse res = new ApiResponse(msg,false);
+		return new ResponseEntity<ApiResponse>(res,HttpStatus.NOT_FOUND);
+	}
+	
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<Map<String,String>> handleMethodArgsNotValidException(MethodArgumentNotValidException ex){

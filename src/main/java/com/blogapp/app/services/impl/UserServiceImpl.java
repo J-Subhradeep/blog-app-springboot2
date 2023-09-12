@@ -89,4 +89,12 @@ public class UserServiceImpl implements UserService {
 		this.userRepo.delete(user);
 	
 	}
+
+	@Override
+	public List<UserDto> getUserByName(String name) {
+		// TODO Auto-generated method stub
+		List<User> user  = this.userRepo.findByNameContaining(name);
+		List<UserDto> dtos  = user.stream().map(u->this.userToDto(u)).collect(Collectors.toList());
+		return dtos;
+	}
 }

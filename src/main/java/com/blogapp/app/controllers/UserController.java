@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.blogapp.app.entities.User;
 import com.blogapp.app.payloads.ApiResponse;
 import com.blogapp.app.payloads.UserDto;
 import com.blogapp.app.services.UserService;
@@ -63,5 +64,10 @@ public class UserController {
 	@GetMapping("/{userId}")
 	public ResponseEntity<UserDto> getUser(@PathVariable("userId")Integer userId){
 		return ResponseEntity.ok(this.userService.getUserById(userId));
+	}
+	
+	@GetMapping("/name/{u_name}")
+	public ResponseEntity<List<UserDto>> getUsers(@PathVariable("u_name") String uName){
+		return new ResponseEntity<>(this.userService.getUserByName(uName),HttpStatus.ALREADY_REPORTED);
 	}
 }
